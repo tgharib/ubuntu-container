@@ -1,0 +1,29 @@
+---
+- name: Setup ubuntu container
+  hosts: localhost
+  connection: local
+  tasks:
+  - name: Install basic packages
+    ansible.builtin.apt:
+      name: [ "sudo", "nano", "vim", "usbutils" ]
+      state: present
+
+  - name: Set root password
+    ansible.builtin.user:
+      name: root
+      state: present
+      password: '$6$tFmshjom4$dAmQ.y1v3fbzhTvcpEVpzq/aqaG9VisgfqN6PC33lIGLZTiYhuj.M5PtQPAHwK5fRC9twBDAe6BjtAulcN/Vq.'
+
+  - name: Ensure 'sudo' group exists
+    ansible.builtin.group:
+      name: sudo
+      state: present
+
+  - name: Add 'owner' user
+    ansible.builtin.user:
+      name: owner
+      state: present
+      password: '$6$tFmshjom4$dAmQ.y1v3fbzhTvcpEVpzq/aqaG9VisgfqN6PC33lIGLZTiYhuj.M5PtQPAHwK5fRC9twBDAe6BjtAulcN/Vq.'
+      group: sudo
+      groups: sudo
+      create_home: yes
