@@ -3,22 +3,6 @@
 0. `sudo apt install docker.io`
 1. Build image: `sudo docker build -t focal .`
 2. `./create-container.sh <container name>`
-
-```
-sudo docker create --name="$1" \
-                   --privileged \
-                   -v /home/nates/workdir:/home/nates/workdir \
-                   -v /dev:/dev \
-                   -v /home/nates/.ssh:/home/nates/.ssh \
-                   -e XDG_RUNTIME_DIR=/run/user/1000 \
-                   -e WAYLAND_DISPLAY=$WAYLAND_DISPLAY \
-                   -v $XDG_RUNTIME_DIR/$WAYLAND_DISPLAY:$XDG_RUNTIME_DIR/$WAYLAND_DISPLAY \
-                   -e DISPLAY=$DISPLAY \
-                   -v /tmp/.X11-unix:/tmp/.X11-unix:rw \
-                   --ipc=host \
-                   --user=$(id -u):$(id -g) \
-                   focal
-```
 3. Inside the container, run:
 
 ```
