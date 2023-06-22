@@ -5,7 +5,7 @@
   tasks:
   - name: Install basic packages
     ansible.builtin.apt:
-      name: [ "sudo", "nano", "vim", "usbutils" ]
+      name: [ "sudo", "nano", "vim", "usbutils", "curl" ]
       state: present
 
   - name: Set root password

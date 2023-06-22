@@ -1,10 +1,9 @@
-#!/usr/bin/env bash
+# Container creation steps
 
-if [[ $# -ne 1 ]]; then
-  echo './create-container.sh <container name>'
-  exit 1
-fi
+1. Build image: `docker build -t focal .`
+2. `./create-container.sh <container name>`
 
+```
 sudo docker create --name="$1" \
                    --privileged \
                    -v /home/owner/workdir:/home/owner/workdir \
@@ -18,5 +17,4 @@ sudo docker create --name="$1" \
                    --ipc=host \
                    --user=$(id -u):$(id -g) \
                    focal
-echo "sudo docker start $1"
-echo "sudo docker exec --user=owner -it $1 /bin/bash"
+```
