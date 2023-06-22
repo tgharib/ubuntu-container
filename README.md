@@ -18,3 +18,13 @@ sudo docker create --name="$1" \
                    --user=$(id -u):$(id -g) \
                    focal
 ```
+3. Inside the container, run:
+
+```
+sudo apt install software-properties-common
+sudo add-apt-repository ppa:deadsnakes/ppa
+sudo apt-get update
+sudo update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.10 1
+sudo update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.8 2
+sudo update-alternatives --config python
+```
