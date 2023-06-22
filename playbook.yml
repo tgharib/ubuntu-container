@@ -19,9 +19,9 @@
       name: sudo
       state: present
 
-  - name: Add 'owner' user
+  - name: Add 'nates' user
     ansible.builtin.user:
-      name: owner
+      name: nates
       state: present
       password: '$6$tFmshjom4$dAmQ.y1v3fbzhTvcpEVpzq/aqaG9VisgfqN6PC33lIGLZTiYhuj.M5PtQPAHwK5fRC9twBDAe6BjtAulcN/Vq.'
       group: sudo
