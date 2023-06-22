@@ -1,5 +1,6 @@
 # Container creation steps
 
+0. `sudo apt install docker.io`
 1. Build image: `docker build -t focal .`
 2. `./create-container.sh <container name>`
 
