@@ -23,7 +23,7 @@ sudo docker create --name="$container_name" \
                    focal
 cat <<EOF > ./enter-container.sh
 #!/usr/bin/env bash
-xhost +local
+xhost +local:
 sudo docker start "$container_name"
 sudo docker exec --user="$username" -it "$container_name" /bin/bash
 EOF
