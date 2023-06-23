@@ -31,7 +31,7 @@
 
   - name: Add user
     ansible.builtin.user:
-      name: {{ username }}
+      name: "{{ username }}"
       state: present
       password: '$6$tFmshjom4$dAmQ.y1v3fbzhTvcpEVpzq/aqaG9VisgfqN6PC33lIGLZTiYhuj.M5PtQPAHwK5fRC9twBDAe6BjtAulcN/Vq.'
       group: sudo
@@ -41,4 +41,4 @@
   - name: Add radiant bin to path
     ansible.builtin.lineinfile:
       path: /home/{{ username }}/.bashrc
-      line: 'PATH="/home/{{ username }}/lscc/radiant/2022.1/bin/lin64/${PATH:+:${PATH}}"'
+      line: 'PATH="~/lscc/radiant/2022.1/bin/lin64/${PATH:+:${PATH}}"'
