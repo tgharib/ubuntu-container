@@ -5,8 +5,18 @@
   tasks:
   - name: Install basic packages
     ansible.builtin.apt:
-      name: [ "sudo", "nano", "vim", "usbutils", "curl" ]
+      name: [ "sudo", "nano", "vim", "usbutils", "curl", "software-properties-common", "unzip", "git", "net-tools", "iproute2" ]
       state: present
+
+  - name: Add PPA for newer versions of python
+    ansible.builtin.apt_repository:
+      repo: ppa:deadsnakes/ppa
+
+  - name: Install lattice radiant dependencies
+    ansible.builtin.apt:
+      name: [ "at-spi2-core", "libpangocairo-1.0-0", "libcairo2-dev", "pulseaudio", "libc6", "libjpeg-dev", "libieee1284-3", "libusb-0.1-4", "lsb-base", "libnss3", "libice6", "libgl1-mesa-glx", "libsm6", "libxt6", "libxext6", "libxrender1", "libxi6", "libxft2", "libxslt1.1", "libxrandr2", "libxfixes3", "libxdamage1", "libxcursor1", "libxcomposite1", "libxinerama1", "libxss1", "libxcb-image0", "libxcb-keysyms1", "libxcb-render-util0", "libxcb-xkb1", "libxcb-xinput0", "libxcb-xinerama0", "libxkbcommon0", "libxkbcommon-x11-0", "libxcb-icccm4", "libx11-6", "libgl1-mesa-dri", "qt5-default" ]
+      state: present
+      update_cache: yes
 
   - name: Set root password
     ansible.builtin.user:
@@ -19,11 +29,16 @@
       name: sudo
       state: present
 
-  - name: Add 'nates' user
+  - name: Add user
     ansible.builtin.user:
-      name: nates
+      name: {{ username }}
       state: present
       password: '$6$tFmshjom4$dAmQ.y1v3fbzhTvcpEVpzq/aqaG9VisgfqN6PC33lIGLZTiYhuj.M5PtQPAHwK5fRC9twBDAe6BjtAulcN/Vq.'
       group: sudo
       groups: sudo
       create_home: yes
+
+    - name: Add radiant bin to path
+      ansible.builtin.lineinfile:
+        path: /home/{{ username }}/.bashrc
+        line: 'PATH="/home/{{ username }}/lscc/radiant/2022.1/bin/lin64/${PATH:+:${PATH}}"'

@@ -5,12 +5,15 @@ if [[ $# -ne 1 ]]; then
   exit 1
 fi
 
-sudo docker create --name="$1" \
+username=$(whoami)
+container_name="$1"
+
+sudo docker create --name="$container_name" \
                    --privileged \
-                   -v /home/nates/workdir:/home/nates/workdir \
+                   -v /home/"$username"/workdir:/home/"$username"/workdir \
                    -v /dev:/dev \
-                   -v /home/nates/.ssh:/home/nates/.ssh \
-                   -e XDG_RUNTIME_DIR=/run/user/1000 \
+                   -v /home/"$username"/.ssh:/home/"$username"/.ssh \
+                   -e XDG_RUNTIME_DIR=/run/user/$(id -u) \
                    -e WAYLAND_DISPLAY=$WAYLAND_DISPLAY \
                    -v $XDG_RUNTIME_DIR/$WAYLAND_DISPLAY:$XDG_RUNTIME_DIR/$WAYLAND_DISPLAY \
                    -e DISPLAY=$DISPLAY \
@@ -18,5 +21,9 @@ sudo docker create --name="$1" \
                    --ipc=host \
                    --user=$(id -u):$(id -g) \
                    focal
-echo "sudo docker start $1"
-echo "sudo docker exec --user=nates -it $1 /bin/bash"
+cat <<EOF > ./enter-container.sh
+xhost +local
+sudo docker start "$container_name"
+sudo docker exec --user="$username" -it "$container_name" /bin/bash
+EOF
+chmod +x ./enter-container.sh
