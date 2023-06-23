@@ -38,7 +38,7 @@
       groups: sudo
       create_home: yes
 
-    - name: Add radiant bin to path
-      ansible.builtin.lineinfile:
-        path: /home/{{ username }}/.bashrc
-        line: 'PATH="/home/{{ username }}/lscc/radiant/2022.1/bin/lin64/${PATH:+:${PATH}}"'
+  - name: Add radiant bin to path
+    ansible.builtin.lineinfile:
+      path: /home/{{ username }}/.bashrc
+      line: 'PATH="/home/{{ username }}/lscc/radiant/2022.1/bin/lin64/${PATH:+:${PATH}}"'
