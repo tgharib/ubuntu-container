@@ -6,8 +6,7 @@ Run `whoami` in a terminal and verify that it returns your username. Then run th
 sudo apt install docker.io # install docker
 sudo docker build -t --build-arg username=$(whoami) focal . # build image
 ./create-container.sh <container name>
-./enter-container.sh
-# inside the contianer now
+./enter-container.sh # after this step, we are inside the container
 LM_LICENSE_FILE=~/license.dat ~/lscc/radiant/2022.1/bin/lin64/radiant # launch radiant
 ```
 
