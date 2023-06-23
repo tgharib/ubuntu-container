@@ -15,5 +15,5 @@ If `python3 --version` returns python 3.8 (which can cause issues building sourc
 ```bash
 sudo update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.10 1
 sudo update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.8 2
-sudo update-alternatives --config python
+sudo update-alternatives --config python3
 ```
