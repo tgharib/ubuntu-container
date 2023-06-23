@@ -1,15 +1,15 @@
-# Container creation steps
+# How to create an ubuntu container
 
-Ensure `whoami` is installed and then run these commands on the host:
+Run `whoami` in a terminal and verify that it returns your username. Then run these commands on the host:
 
 ```bash
 sudo apt install docker.io # install docker
 sudo docker build -t --build-arg username=$(whoami) focal . # build image
 ./create-container.sh <container name>
 ./enter-container.sh
+# inside the contianer now
+LM_LICENSE_FILE=~/license.dat ~/lscc/radiant/2022.1/bin/lin64/radiant # launch radiant
 ```
-
-Once inside the container, you can run radiant via `LM_LICENSE_FILE=~/license.dat ~/lscc/radiant/2022.1/bin/lin64/radiant`
 
 If `python3 --version` returns python 3.8 (which can cause issues building source code), update the symbolic link with:
 
