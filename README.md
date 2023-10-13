@@ -17,3 +17,5 @@ sudo update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.10 
 sudo update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.8 2
 sudo update-alternatives --config python3
 ```
+
+If /dev devices are not being passed-through to the container, you might need to [disable apparmor](https://gist.github.com/shqear93/8be4c58adff3c27f53096105e6ca2c7b).
