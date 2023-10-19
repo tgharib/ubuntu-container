@@ -8,6 +8,8 @@ fi
 username=$(whoami)
 container_name="$1"
 
+mkdir /home/"$username"/workdir
+
 sudo docker create --name="$container_name" \
                    --privileged \
                    -v /home/"$username"/workdir:/home/"$username"/workdir \
