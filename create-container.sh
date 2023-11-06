@@ -22,7 +22,6 @@ sudo docker create --name="$container_name" \
                    -v /tmp/.X11-unix:/tmp/.X11-unix:rw `# X11 passthrough` \
                    --ipc=host `# X11 passthrough (MIT-SHM)` \
                    -v /dev:/dev `# Device passthrough` \
-                   --group-add dialout \
                    focal
 cat <<EOF > ./enter-container.sh
 #!/usr/bin/env bash
