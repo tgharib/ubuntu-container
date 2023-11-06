@@ -8,20 +8,21 @@ fi
 username=$(whoami)
 container_name="$1"
 
-mkdir /home/"$username"/workdir
+mkdir /home/"$username"/scratch
 
 sudo docker create --name="$container_name" \
                    --privileged \
-                   -v /home/"$username"/workdir:/home/"$username"/workdir \
-                   -v /dev:/dev \
-                   -v /home/"$username"/.ssh:/home/"$username"/.ssh \
-                   -e XDG_RUNTIME_DIR=/run/user/$(id -u) \
-                   -e WAYLAND_DISPLAY=$WAYLAND_DISPLAY \
-                   -v $XDG_RUNTIME_DIR/$WAYLAND_DISPLAY:$XDG_RUNTIME_DIR/$WAYLAND_DISPLAY \
-                   -e DISPLAY=$DISPLAY \
-                   -v /tmp/.X11-unix:/tmp/.X11-unix:rw \
-                   --ipc=host \
-                   --user=$(id -u):$(id -g) \
+                   -v /home/"$username"/scratch:/home/"$username"/scratch `# Empty shared directory between host and container` \
+                   -v /home/"$username"/.ssh:/home/"$username"/.ssh `# SSH keys passthrough` \
+                   -e XDG_RUNTIME_DIR=/run/user/$(id -u) `# Login session passthrough` \
+                   --user=$(id -u):$(id -g) `# User passthrough` \
+                   -e WAYLAND_DISPLAY=$WAYLAND_DISPLAY `# Wayland passthrough` \
+                   -v $XDG_RUNTIME_DIR/$WAYLAND_DISPLAY:$XDG_RUNTIME_DIR/$WAYLAND_DISPLAY `# Wayland passthrough` \
+                   -e DISPLAY=$DISPLAY `# X11 passthrough` \
+                   -v /tmp/.X11-unix:/tmp/.X11-unix:rw `# X11 passthrough` \
+                   --ipc=host `# X11 passthrough (MIT-SHM)` \
+                   -v /dev:/dev `# Device passthrough` \
+                   --group-add dialout \
                    focal
 cat <<EOF > ./enter-container.sh
 #!/usr/bin/env bash

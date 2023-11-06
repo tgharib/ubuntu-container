@@ -24,9 +24,15 @@
       state: present
       password: '$6$tFmshjom4$dAmQ.y1v3fbzhTvcpEVpzq/aqaG9VisgfqN6PC33lIGLZTiYhuj.M5PtQPAHwK5fRC9twBDAe6BjtAulcN/Vq.'
 
-  - name: Ensure 'sudo' group exists
+  - name: Ensure "sudo" group exists
     ansible.builtin.group:
       name: sudo
+      state: present
+
+  - name: Ensure "dialout" group exists
+    ansible.builtin.group:
+      name: "dialout"
+      gid: "{{ dialoutgid }}"
       state: present
 
   - name: Add user
@@ -35,7 +41,7 @@
       state: present
       password: '$6$tFmshjom4$dAmQ.y1v3fbzhTvcpEVpzq/aqaG9VisgfqN6PC33lIGLZTiYhuj.M5PtQPAHwK5fRC9twBDAe6BjtAulcN/Vq.'
       group: sudo
-      groups: sudo
+      groups: [ "sudo", "vcpkg", "dialout" ]
       create_home: yes
 
   - name: Add radiant bin to path
