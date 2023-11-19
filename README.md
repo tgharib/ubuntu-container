@@ -8,6 +8,9 @@ sudo apt install docker.io # install docker
 ./build-image.sh
 ./create-container.sh <container name>
 ./enter-container.sh # after this step, we are inside the container
+# Install steam deb
+sudo apt update
+sudo apt install steam-libs-amd64:amd64 steam-libs-i386:i386
 ```
 
 * The command to launch radiant is: `LM_LICENSE_FILE=~/license.dat ~/lscc/radiant/2022.1/bin/lin64/radiant`.
