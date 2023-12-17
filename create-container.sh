@@ -12,16 +12,16 @@ mkdir /home/"$username"/scratch
 
 sudo docker create --name="$container_name" \
                    --privileged \
-                   -v /home/"$username"/scratch:/home/"$username"/scratch `# Empty shared directory between host and container` \
-                   -v /home/"$username"/.ssh:/home/"$username"/.ssh `# SSH keys passthrough` \
-                   -e XDG_RUNTIME_DIR=/run/user/$(id -u) `# Login session passthrough` \
-                   --user=$(id -u):$(id -g) `# User passthrough` \
-                   -e WAYLAND_DISPLAY=$WAYLAND_DISPLAY `# Wayland passthrough` \
-                   -v $XDG_RUNTIME_DIR/$WAYLAND_DISPLAY:$XDG_RUNTIME_DIR/$WAYLAND_DISPLAY `# Wayland passthrough` \
-                   -e DISPLAY=$DISPLAY `# X11 passthrough` \
-                   -v /tmp/.X11-unix:/tmp/.X11-unix:rw `# X11 passthrough` \
-                   --ipc=host `# X11 passthrough (MIT-SHM)` \
-                   -v /dev:/dev `# Device passthrough` \
+                   -v /home/"$username"/scratch:/home/"$username"/scratch \
+                   -v /home/"$username"/.ssh:/home/"$username"/.ssh \
+                   -v $XDG_RUNTIME_DIR/$WAYLAND_DISPLAY:/tmp/$WAYLAND_DISPLAY \
+                   -v /tmp/.X11-unix:/tmp/.X11-unix:rw \
+                   -v /dev:/dev \
+                   -e XDG_RUNTIME_DIR=/tmp/ \
+                   -e WAYLAND_DISPLAY=$WAYLAND_DISPLAY \
+                   -e DISPLAY=$DISPLAY \
+                   --ipc=host \
+                   --net=host \
                    steam
 cat <<EOF > ./enter-container.sh
 #!/usr/bin/env bash

@@ -28,16 +28,6 @@
       groups: [ "users", "sudo", "dialout" ]
       create_home: yes
 
-  - name: Install software dependencies
-    ansible.builtin.apt:
-      name: [ "direnv", "build-essential", "clang", "curl", "python3.10", "python3.10-venv", "libserialport-dev" ]
-      state: present
-
-  - name: Add direnv shell hook
-    ansible.builtin.lineinfile:
-      path: /home/{{ username }}/.bashrc
-      line: 'eval "$(direnv hook bash)"'
-
   - name: Add arch file
     ansible.builtin.file:
       path: /var/lib/dpkg/arch
